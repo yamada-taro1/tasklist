@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     def destroy
         @task.destroy
         
-        flash[:success] = 'タスクの削除に変更しました'
+        flash[:success] = 'タスクの削除に成功しました'
         redirect_to tasks_url
     end
     
