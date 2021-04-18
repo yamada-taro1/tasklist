@@ -18,10 +18,10 @@ class UsersController < ApplicationController
     
     if @user.save
       flash[:success] = "新規アカウントを作成しました"
-      redirect_to @user
+      redirect_to login_path
     else
       flash.now[:danger] = "新規アカウントの追加に失敗しました"
-      rendar :new
+      render :new
     end
   end
   
