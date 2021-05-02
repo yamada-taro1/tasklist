@@ -1,10 +1,9 @@
 class TasksController < ApplicationController
     before_action :require_user_logged_in
-    before_action :correct_user, only: [:destroy, :show, :edit]
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
-    
+    before_action :correct_user, only: [:destroy, :show, :edit, :update]
+
     def index
-           @tasks = current_user.tasks.order(id: :desc).page(params[:page]) 
+        @tasks = current_user.tasks.order(id: :desc).page(params[:page]) 
     end
 
     def show
@@ -16,7 +15,6 @@ class TasksController < ApplicationController
 
     def create
         @task = current_user.tasks.build(task_params)
-        
         if @task.save
             flash[:success] = 'タスクの作成が完了しました'
             redirect_to @task
@@ -31,7 +29,6 @@ class TasksController < ApplicationController
     end
 
     def update
-
         if @task.update(task_params)
             flash[:success] = 'タスクの変更が完了しました'
             redirect_to @task
@@ -43,16 +40,11 @@ class TasksController < ApplicationController
 
     def destroy
         @task.destroy
-        
         flash[:success] = 'タスクの削除に成功しました'
         redirect_to tasks_url
     end
     
     private
-    
-    def set_task
-        @task = Task.find(params[:id])
-    end
     
     def task_params
         params.require(:task).permit(:content, :status)
